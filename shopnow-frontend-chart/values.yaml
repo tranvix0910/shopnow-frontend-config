@@ -11,7 +11,7 @@ global:
 # Deployment
 image:
   repository: ""
-  tag: "v1.0.0"
+  tag: "v1.0.0_5f6e7cf"
   pullPolicy: IfNotPresent
 
 replicaCount: 1
