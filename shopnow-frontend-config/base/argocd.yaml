@@ -17,7 +17,9 @@ spec:
         - ../shopnow-frontend-config/overlays/production/values.yaml
       values: |
         image:
-          repository: "022499043310.dkr.ecr.ap-southeast-1.amazonaws.com/shopnow/shopnow-frontend"
+          # Account 963626856932, not 022499043310 - see
+          # terraform/20-cluster-workload/modules/ecr.
+          repository: "963626856932.dkr.ecr.ap-southeast-1.amazonaws.com/shopnow/shopnow-frontend"
   project: shopnow
   syncPolicy:
     automated:
