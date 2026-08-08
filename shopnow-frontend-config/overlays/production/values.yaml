@@ -1,6 +1,7 @@
-ingress:
-  certificateArn: "arn:aws:acm:ap-southeast-1:022499043310:certificate/506d551a-b534-4f5b-af8f-5e8cedfe0e0b"
-  subnets: "subnet-0b78796b583490b19, subnet-0e57056ac64de1902, subnet-0501cacaf96e89a09"
-  listenPorts: '[{"HTTP": 80}, {"HTTPS":443}]'
-  groupName: "shopnow"
-  actionsSslRedirect: '{"Type": "redirect", "RedirectConfig": {"Protocol": "HTTPS", "Port": "443", "Host": "#{host}", "Path": "/#{path}", "Query": "#{query}", "StatusCode": "HTTP_301"}}' 
+# All ingress values now come from the chart defaults (shared ALB, no domain
+# this account owns). This overlay used to override them with a
+# certificate-arn, subnets, and ALB group from a different AWS account
+# (022499043310) and a domain (shopnow.tranvix.click) this account does not
+# control - the ALB controller could never build a model for that Ingress.
+# Left empty rather than deleted so a future real domain + cert has an obvious
+# place to go back into.

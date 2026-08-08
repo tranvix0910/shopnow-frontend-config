@@ -26,16 +26,25 @@ service:
   targetPort: 80
 
 # Ingress
+#
+# Joins the shared ALB (group.name eks-workload) that the admin tools and the
+# 5 backend services already use, on its own listener port - see
+# shopnow-*-chart/templates/ingress.yaml for the same pattern. The previous
+# version of this chart pointed at shopnow.tranvix.click with a certificate-arn
+# and subnets from a different AWS account (022499043310); that domain and
+# those subnets do not exist in this account's VPC, so the ALB controller could
+# never build a model for it - see FailedBuildModel events on the Ingress.
 ingress:
   className: "alb"
-  host: "shopnow.tranvix.click"
+  host: ""
   path: "/"
   pathType: Prefix
-  certificateArn: ""  # Will be overridden by external secret
-  subnets: ""         # Will be overridden by external secret
-  listenPorts: ""     # Will be overridden by external secret
-  groupName: ""       # Will be overridden by external secret
-  actionsSslRedirect: ""  # Will be overridden by external secret
+  groupName: "eks-workload"
+  groupOrder: 100
+  listenPorts: '[{"HTTP": 8080}]'
+  inboundCidrs: "0.0.0.0/0"
+  healthcheckPath: "/"
+  successCodes: "200"
 
 # ConfigMap
 configmap:
