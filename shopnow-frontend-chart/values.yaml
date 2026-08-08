@@ -41,7 +41,11 @@ ingress:
   pathType: Prefix
   groupName: "eks-workload"
   groupOrder: 100
-  listenPorts: '[{"HTTP": 8080}]'
+  # 8080 collides with shopnow-keycloak-realms-ingress (database-config) on
+  # the same shared ALB - the controller refuses to merge two Ingresses that
+  # claim the same listener port with different inbound-cidrs. 8082 is free
+  # across every other Ingress in the eks-workload group.
+  listenPorts: '[{"HTTP": 8082}]'
   inboundCidrs: "0.0.0.0/0"
   healthcheckPath: "/"
   successCodes: "200"
